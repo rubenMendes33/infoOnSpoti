@@ -6,7 +6,10 @@ import {CommonModule} from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ToastComponent],
+  imports: [CommonModule,
+    RouterOutlet,
+    ToastComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
