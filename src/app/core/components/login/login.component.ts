@@ -24,6 +24,6 @@ export class LoginComponent {
 
   onSubmit() {
     console.log(this.loginForm.value.email);
-    this.toastService.showSuccess('Success', 'You have logged in successfully');
+    this.toastService.showError('Success', 'You have logged in successfully');
   }
 }
