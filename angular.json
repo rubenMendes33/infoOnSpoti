@@ -25,12 +25,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss"
             ],
@@ -73,7 +68,11 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "buildTarget": "infoOnSpoti:build",
+            "extraWebpackConfig": "webpack.config.js"
+          }
         }
       }
     }

@@ -1,5 +1,11 @@
 import {inject, Injectable} from '@angular/core';
-import {Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from '@angular/fire/auth';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile
+} from '@angular/fire/auth';
 import {from, Observable} from 'rxjs';
 
 @Injectable({
@@ -17,6 +23,11 @@ export class AuthService {
 
   login(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then( () => {});
+    return from(promise);
+  }
+
+  logout() {
+    const promise = signOut(this.firebaseAuth).then(() => {});
     return from(promise);
   }
 }

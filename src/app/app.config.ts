@@ -5,6 +5,10 @@ import { routes } from './app.routes';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {getAuth, provideAuth} from '@angular/fire/auth';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import {provideTranslateService} from './app.translate-loader';
+import {provideHttpClient} from '@angular/common/http';
+
 const firebaseConfig= {
   apiKey: "AIzaSyDn12m6jklcuZmi_LiKpu7lolCrIwease0",
     authDomain: "infoonspoti.firebaseapp.com",
@@ -20,6 +24,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
-    provideAnimations()
+    provideAnimations(),
+    provideHttpClient(),
+    { provide: FIREBASE_OPTIONS, useValue: firebaseConfig },
+    provideTranslateService
   ]
 };

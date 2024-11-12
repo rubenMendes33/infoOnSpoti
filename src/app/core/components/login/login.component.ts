@@ -4,8 +4,9 @@ import {ToastService} from '../../../shared/services/toast.service';
 import {AuthService} from '../../services/auth.service';
 import { InputTextModule } from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Button} from 'primeng/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -16,7 +17,9 @@ import {Button} from 'primeng/button';
     ReactiveFormsModule,
     InputTextModule,
     PasswordModule,
-    Button
+    Button,
+    RouterLink,
+    TranslatePipe
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

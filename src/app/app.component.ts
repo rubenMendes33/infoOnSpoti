@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {ToastComponent} from './shared/components/toast/toast.component';
 import {CommonModule} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +15,9 @@ import {CommonModule} from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  private translate = inject(TranslateService);
   title = 'infoOnSpoti';
+  constructor() {
+    this.translate.setDefaultLang('en');
+  }
 }

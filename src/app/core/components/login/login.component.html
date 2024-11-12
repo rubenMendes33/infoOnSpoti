@@ -1,5 +1,6 @@
 <form  [formGroup]="loginForm"  (ngSubmit)="onSubmit()">
   <input formControlName="email" name="email" type="email" placeholder="Email" pInputText />
   <p-password formControlName="password" type="password" placeholder="Password" [feedback]="false"/>
-  <p-button [disabled]="loginForm.invalid" type="submit">Login</p-button>
+  <p-button type="submit">{{'app.login' | translate}}</p-button>
 </form>
+<p-button routerLink="/register" >Register</p-button>
