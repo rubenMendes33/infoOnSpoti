@@ -1,5 +1,22 @@
-<form (ngSubmit)="onSubmit()">
-  <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required />
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
-  <button type="submit">Sign Up</button>
+<form [formGroup]="registerForm"  (ngSubmit)="onSubmit()">
+  <input formControlName="email" name="email" type="email" placeholder="Email" pInputText />
+  <input formControlName="userName" name="userName" type="text" placeholder="UserName" pInputText />
+  <p-password formControlName="password" type="password" placeholder="Password" >
+    <ng-template pTemplate="header">
+      <h6>Pick a password</h6>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-divider />
+      <p class="mt-2">Suggestions</p>
+      <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+        <li>At least one lowercase</li>
+        <li>At least one uppercase</li>
+        <li>At least one numeric</li>
+        <li>Minimum 8 characters</li>
+      </ul>
+    </ng-template>
+  </p-password>
+  <p-button [disabled]="registerForm.invalid" type="submit">Sign Up</p-button>
 </form>
+<p-button routerLink="/login" >Login</p-button>
+

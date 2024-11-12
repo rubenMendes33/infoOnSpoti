@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, inject, OnDestroy} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastService} from '../../../shared/services/toast.service';
 import {AuthService} from '../../services/auth.service';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,6 +7,7 @@ import {PasswordModule} from 'primeng/password';
 import {Router, RouterLink} from '@angular/router';
 import {Button} from 'primeng/button';
 import {TranslatePipe} from '@ngx-translate/core';
+import {Subject, takeUntil} from 'rxjs';
 
 
 @Component({
@@ -24,20 +25,23 @@ import {TranslatePipe} from '@ngx-translate/core';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy{
   authService = inject(AuthService);
   toastService = inject(ToastService);
   router = inject(Router);
 
+  private readonly destroy$ = new Subject();
+
   loginForm = new FormGroup(
     {
-      email: new FormControl('',[Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]),
-      password: new FormControl('' ,[Validators.required])
+      email: new FormControl(''),
+      password: new FormControl('' )
     }
   )
 
   onSubmit() {
-    this.authService.login(this.loginForm.value.email!,this.loginForm.value.password!).subscribe({
+    this.authService.login(this.loginForm.value.email!,this.loginForm.value.password!).
+    pipe(takeUntil(this.destroy$)).subscribe({
       next: () => {
         this.router.navigateByUrl('/').then(() => {
           this.toastService.showSuccess('Success', 'Logged in');
@@ -45,5 +49,10 @@ export class LoginComponent {
     }, error: (err) => {
       this.toastService.showError('Error', err.message);
     }});
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(null);
+    this.destroy$.complete();
   }
 }
