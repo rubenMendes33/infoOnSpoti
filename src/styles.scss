@@ -5,6 +5,8 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family), serif;
+  color: var(--primary-text);
+  font-size: 16px;
 }
 
 :root {
@@ -12,6 +14,7 @@ html, body {
   --font-family: 'Roboto', sans-serif;
 
   /* colors */
+  --primary-text: white;
 
   /* background */
   --background: radial-gradient(ellipse at bottom, rgba(20, 20, 20, 0.85), #141414), radial-gradient(ellipse at top, #00ff62, transparent), radial-gradient(ellipse at bottom, #0071a2, transparent);

@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
@@ -8,6 +8,7 @@ import {Router, RouterLink} from '@angular/router';
 import {ToastService} from '../../../shared/services/toast.service';
 import {DividerModule} from 'primeng/divider';
 import {Subject, takeUntil} from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -19,10 +20,12 @@ import {Subject, takeUntil} from 'rxjs';
     PasswordModule,
     Button,
     RouterLink,
-    DividerModule
+    DividerModule,
+    TranslatePipe
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements  OnDestroy{
   authService = inject(AuthService);

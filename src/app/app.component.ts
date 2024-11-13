@@ -16,7 +16,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent {
   private translate = inject(TranslateService);
-  title = 'infoOnSpoti';
+
   constructor() {
     this.translate.setDefaultLang('en');
   }

@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastService} from '../../../shared/services/toast.service';
 import {AuthService} from '../../services/auth.service';
@@ -23,7 +23,8 @@ import {Subject, takeUntil} from 'rxjs';
     TranslatePipe
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnDestroy{
   authService = inject(AuthService);

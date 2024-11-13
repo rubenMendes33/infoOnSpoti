@@ -1,0 +1,38 @@
+.register-wrapper{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+
+  .register-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .email-input,
+    .password-input,
+    .user-name-input{
+      margin-bottom: 20px;
+    }
+
+  }
+  .back-to-login-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    label,
+    a{
+        font-size: 13px;
+      }
+    a{
+      margin-left: 5px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+  }
+}

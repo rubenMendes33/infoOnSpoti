@@ -1,9 +1,10 @@
 <div class="login-wrapper">
-  <form data-testid="login-form" class="login-form"  [formGroup]="loginForm"  (ngSubmit)="onSubmit()">
-    <input data-testid="email-input" class="email-input" formControlName="email" name="email" type="email" placeholder="Email" pInputText />
-    <p-password data-testid="password-input" class="password-input" formControlName="password" type="password" placeholder="Password" [feedback]="false"/>
-    <p-button data-testid="submit-login"  [rounded]="true" type="submit">Login</p-button>
-  </form>
-  <p-button [link]="true" routerLink="/register" >{{'app.register' | translate}}</p-button>
-
+  @defer{
+    <form data-testid="login-form" class="login-form"  [formGroup]="loginForm"  (ngSubmit)="onSubmit()">
+      <input data-testid="email-input" class="email-input" formControlName="email" name="email" type="email" placeholder="Email" pInputText />
+      <p-password data-testid="password-input" class="password-input" formControlName="password" type="password" placeholder="Password" [feedback]="false"/>
+      <p-button data-testid="submit-login"  [rounded]="true" type="submit">Login</p-button>
+    </form>
+    <p-button [link]="true" routerLink="/register" >{{'app.register' | translate}}</p-button>
+  }
 </div>
