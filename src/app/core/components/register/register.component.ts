@@ -7,8 +7,8 @@ import {Button} from 'primeng/button';
 import {Router, RouterLink} from '@angular/router';
 import {ToastService} from '../../../shared/services/toast.service';
 import {DividerModule} from 'primeng/divider';
-import {Subject, takeUntil} from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-register',
@@ -27,15 +27,12 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterComponent implements  OnDestroy{
-  authService = inject(AuthService);
-  router = inject(Router);
-  toastService = inject(ToastService);
+export class RegisterComponent {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private toastService = inject(ToastService);
 
-  private readonly destroy$ = new Subject();
-
-
-  registerForm = new FormGroup(
+  protected registerForm = new FormGroup(
     {
       email: new FormControl('',[Validators.required,  Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]),
       userName: new FormControl('', Validators.required),
@@ -43,9 +40,9 @@ export class RegisterComponent implements  OnDestroy{
     }
   )
 
-  onSubmit() {
+  protected onSubmit() {
     this.authService.register(this.registerForm.value.email!, this.registerForm.value.userName!, this.registerForm.value.password!).
-    pipe(takeUntil(this.destroy$)).subscribe({
+    pipe(takeUntilDestroyed()).subscribe({
       next: () => {
         this.router.navigateByUrl('/').then(() => {
           this.toastService.showSuccess('Success', 'User registered');
@@ -54,10 +51,5 @@ export class RegisterComponent implements  OnDestroy{
         this.toastService.showError('Error', err.message);
       }
     });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(null);
-    this.destroy$.complete();
   }
 }

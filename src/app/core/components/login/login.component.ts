@@ -7,7 +7,7 @@ import {PasswordModule} from 'primeng/password';
 import {Router, RouterLink} from '@angular/router';
 import {Button} from 'primeng/button';
 import {TranslatePipe} from '@ngx-translate/core';
-import {Subject, takeUntil} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -26,23 +26,21 @@ import {Subject, takeUntil} from 'rxjs';
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnDestroy{
-  authService = inject(AuthService);
-  toastService = inject(ToastService);
-  router = inject(Router);
+export class LoginComponent {
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
+  private router = inject(Router);
 
-  private readonly destroy$ = new Subject();
-
-  loginForm = new FormGroup(
+  protected loginForm = new FormGroup(
     {
       email: new FormControl(''),
       password: new FormControl('' )
     }
   )
 
-  onSubmit() {
+  protected onSubmit() {
     this.authService.login(this.loginForm.value.email!,this.loginForm.value.password!).
-    pipe(takeUntil(this.destroy$)).subscribe({
+    pipe(takeUntilDestroyed()).subscribe({
       next: () => {
         this.router.navigateByUrl('/').then(() => {
           this.toastService.showSuccess('Success', 'Logged in');
@@ -52,8 +50,4 @@ export class LoginComponent implements OnDestroy{
     }});
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(null);
-    this.destroy$.complete();
-  }
 }
