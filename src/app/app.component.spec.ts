@@ -1,10 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
+export class FakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: FakeLoader }
+        })
+      ]
     }).compileComponents();
   });
 

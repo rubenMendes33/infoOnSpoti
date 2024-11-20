@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToastComponent } from './toast.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {FakeLoader} from '../../../app.component.spec';
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
@@ -8,7 +10,12 @@ describe('ToastComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ToastComponent]
+      imports: [
+        ToastComponent,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: FakeLoader }
+        })
+      ]
     })
     .compileComponents();
 

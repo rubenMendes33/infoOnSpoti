@@ -9,7 +9,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import {provideTranslateService} from './app.translate-loader';
 import {provideHttpClient} from '@angular/common/http';
 
-const firebaseConfig= {
+ const firebaseConfig= {
   apiKey: "AIzaSyDn12m6jklcuZmi_LiKpu7lolCrIwease0",
     authDomain: "infoonspoti.firebaseapp.com",
     projectId: "infoonspoti",
