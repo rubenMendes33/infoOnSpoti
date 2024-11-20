@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
@@ -31,6 +31,8 @@ export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private toastService = inject(ToastService);
+  private destroyRef = inject(DestroyRef);
+
 
   protected registerForm = new FormGroup(
     {
@@ -42,7 +44,7 @@ export class RegisterComponent {
 
   protected onSubmit() {
     this.authService.register(this.registerForm.value.email!, this.registerForm.value.userName!, this.registerForm.value.password!).
-    pipe(takeUntilDestroyed()).subscribe({
+    pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.router.navigateByUrl('/').then(() => {
           this.toastService.showSuccess('Success', 'User registered');

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastService} from '../../../shared/services/toast.service';
 import {AuthService} from '../../services/auth.service';
@@ -30,6 +30,8 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
+
 
   protected loginForm = new FormGroup(
     {
@@ -40,7 +42,7 @@ export class LoginComponent {
 
   protected onSubmit() {
     this.authService.login(this.loginForm.value.email!,this.loginForm.value.password!).
-    pipe(takeUntilDestroyed()).subscribe({
+    pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.router.navigateByUrl('/').then(() => {
           this.toastService.showSuccess('Success', 'Logged in');
