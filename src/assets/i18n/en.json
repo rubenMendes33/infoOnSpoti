@@ -4,5 +4,8 @@
   "app.register.password.upper": "At least one uppercase",
   "app.register.password.numeric": "At least one numeric",
   "app.register.password.minimum": "Minimum 8 characters",
-  "app.register.login": "Already have an account?"
+  "app.register.login": "Already have an account?",
+  "app.errors.login.auth/invalid-email": "Invalid email or password",
+  "app.errors.login.auth/invalid-credential": "Invalid email or password",
+  "app.errors.login.auth/missing-password": "Invalid email or password"
 }

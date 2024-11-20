@@ -48,7 +48,7 @@ export class LoginComponent {
           this.toastService.showSuccess('Success', 'Logged in');
         });
     }, error: (err) => {
-      this.toastService.showError('Error', err.message);
+      this.toastService.showError('Error', err.code);
     }});
   }
 
