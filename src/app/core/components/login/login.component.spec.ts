@@ -1,10 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LoginComponent } from './login.component';
-import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
-import {getAuth, provideAuth} from '@angular/fire/auth';
+import {render, screen } from '@testing-library/angular';
+import {LoginComponent} from './login.component';
+import {DeferBlockState, TestBed} from '@angular/core/testing';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {FakeLoader} from '../../../app.component.spec';
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import '@testing-library/jest-dom'
+
+
 
 const mockFirebaseConfig = {
   apiKey: "mock-api-key",
@@ -17,8 +20,6 @@ const mockFirebaseConfig = {
 };
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -33,14 +34,19 @@ describe('LoginComponent', () => {
         provideAuth(() => getAuth())
       ]
     })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      .compileComponents();
   });
+  it('should render login form', async () => {
+    const { fixture } = await render(LoginComponent);
+    const deferBlockFixture = (await fixture.getDeferBlocks())[0];
+    await deferBlockFixture.render(DeferBlockState.Complete);
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    const emailInput = screen.getByPlaceholderText('Email');
+    const passwordInput = screen.getAllByPlaceholderText('Password')[0];
+    const submitButton = screen.getByRole('button', { name: /login/i });
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
   });
 });
